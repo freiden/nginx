@@ -101,3 +101,6 @@ default['nginx']['listening_port'] = 80 # Custom: Management of listening port
 default['nginx']['proxy_read_timeout']      = nil
 default['nginx']['client_body_buffer_size'] = nil
 default['nginx']['client_max_body_size']    = nil
+
+# Customization CFD
+default['nginx']['listening_port'] = 80
