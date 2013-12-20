@@ -17,6 +17,9 @@
 # limitations under the License.
 #
 
+include_recipe "build-essential"
+include_recipe 'rbenv'
+
 packages = value_for_platform_family(
   %w[rhel]   => node['nginx']['passenger']['packages']['rhel'],
   %w[debian] => node['nginx']['passenger']['packages']['debian']
@@ -28,13 +31,23 @@ unless packages.empty?
   end
 end
 
-gem_package 'rake'
-
-gem_package 'passenger' do
-  action     :install
-  version    node['nginx']['passenger']['version']
-  gem_binary node['nginx']['passenger']['gem_binary'] if node['nginx']['passenger']['gem_binary']
+rbenv_gem 'rake' do
 end
+
+rbenv_gem 'passenger' do
+  version node['nginx']['passenger']['version']
+  # rbenv_version node['nginx']['passenger']['rbenv_version']
+end
+
+rbenv_rehash
+
+# gem_package 'rake'
+
+# gem_package 'passenger' do
+#   action     :install
+#   version    node['nginx']['passenger']['version']
+#   gem_binary node['nginx']['passenger']['gem_binary'] if node['nginx']['passenger']['gem_binary']
+# end
 
 template "#{node["nginx"]["dir"]}/conf.d/passenger.conf" do
   source 'modules/passenger.conf.erb'
