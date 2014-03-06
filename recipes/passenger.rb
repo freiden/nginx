@@ -39,7 +39,7 @@ rbenv_gem 'passenger' do
   # rbenv_version node['nginx']['passenger']['rbenv_version']
 end
 
-rbenv_rehash
+rbenv_rehash %Q(Doing the rehash dance ('°o°)' '(°o°'))
 
 # gem_package 'rake'
 
