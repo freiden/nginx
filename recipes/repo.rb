@@ -27,13 +27,14 @@ when 'rhel', 'fedora'
     gpgkey      'http://nginx.org/keys/nginx_signing.key'
     action :create
   end
+
 when 'debian'
   include_recipe 'apt::default'
 
   apt_repository 'nginx' do
     uri          node['nginx']['upstream_repository']
     distribution node['lsb']['codename']
-    components   %w[nginx]
+    components   %w(nginx)
     deb_src      true
     key          'http://nginx.org/keys/nginx_signing.key'
   end
